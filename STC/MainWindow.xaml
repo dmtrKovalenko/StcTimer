@@ -1,0 +1,93 @@
+﻿<Window x:Class="StcTimer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:DesignInControl="clr-namespace:DesignInControl"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="STC Timer" Height="230.5" Width="377"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" ResizeMode="CanMinimize" Icon="Resources/clock_8654.ico">
+    <Window.Resources>
+        <Storyboard x:Key="CountdownAnimation">
+            <DoubleAnimation
+                        Storyboard.TargetName="progressBar" 
+                        Storyboard.TargetProperty="Percentage"
+                        From="0.0" To="1.0" Duration="{Binding Duration}"
+                        AutoReverse="false" />
+        </Storyboard>
+        <Storyboard x:Key="BlinkingTextAnimate">
+            <ColorAnimation
+                        Storyboard.TargetName="progressBar" 
+                        Storyboard.TargetProperty="(SegmentColor).(SolidColorBrush.Color)"
+                        To="Transparent" Duration="0:0:0.75" 
+                        RepeatBehavior="Forever" AutoReverse="True" />
+        </Storyboard>
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="St" Margin="50,3,-50,-3" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <DesignInControl:CircularProgressBar HorizontalAlignment="Center" VerticalAlignment="Center" SegmentColor="#FF878889" StrokeThickness="7" Percentage="100" Radius="80" />
+                <DesignInControl:CircularProgressBar x:Name ="progressBar" VerticalAlignment="Center" Percentage ="0" StrokeThickness="7" Radius="80" Focusable="True"/>
+                <Button Style ="{StaticResource BubleButton}" 
+                        x:Name="button" Content="{Binding StringCountdown}" 
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top" 
+                        Width="167" Height="167" 
+                        Background="#00723B3B"
+                        Click="pause_Click" 
+                        BorderBrush="Transparent" 
+                        Margin="3,3,0,0"  Focusable="False"
+                        IsEnabled="False" Cursor="Hand"/>
+            </Grid>
+        </StackPanel>
+        <Button x:Name="recoilTo20" 
+                Content="20 мин" 
+                HorizontalAlignment="Left"
+                Margin="-82,3,0,0" 
+                VerticalAlignment="Top" 
+                Width="95" Height="48"
+                Style ="{DynamicResource ButtonBlue}" 
+                FontSize="14.667"
+                Click="recoilTo20_Click" 
+                Cursor="Hand" 
+                Focusable="False"/>
+        
+        <Button x:Name="recoilTo30" 
+                Content="30 мин"
+                HorizontalAlignment="Left"
+                Margin="-82,65,0,0" 
+                VerticalAlignment="Top"
+                Width="95" Height="48"
+                Style ="{DynamicResource ButtonOrange}" 
+                FontSize="14.667"
+                Click="recoilTo30_Click"
+                Cursor="Hand" Focusable="False"/>
+        
+        <Button x:Name="recoilTo60"
+                Content="1 час" 
+                HorizontalAlignment="Left" 
+                Margin="-82,125,0,-3" 
+                VerticalAlignment="Top" 
+                Width="95" Height="48"
+                Style ="{DynamicResource ButtonGreen}" 
+                FontSize="14.667" 
+                Click="recoilTo60_Click" 
+                Grid.RowSpan="2" 
+                Cursor="Hand" Focusable="False"/>
+
+        <Button x:Name="restartbtn"
+                Style ="{StaticResource BubleButton}"
+                Background="Transparent"
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Margin="31,135,0,-8" Width="42" Height="43" 
+                Click="restartbtn_Click" BorderBrush="#00707070" BorderThickness="0" Grid.RowSpan="2" 
+                IsEnabled="False" Cursor="Hand" Focusable="False">
+            <Image Source="/Resources/update-arrow (1).png" Height="33" Width="32"></Image>
+        </Button >
+        <Image x:Name="image" HorizontalAlignment="Left" Height="74" Margin="198,-12,-89,0" VerticalAlignment="Top" Width="61" Source="Resources/23.png"/>
+    </Grid>
+</Window>
